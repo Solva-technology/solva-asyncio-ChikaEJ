@@ -2,18 +2,15 @@ import asyncio
 
 
 async def fast_task():
-    await asyncio.sleep(0.1)
-    return 'fast'
+    return await asyncio.sleep(0.1, result='fast')
 
 
 async def medium_task():
-    await asyncio.sleep(0.3)
-    return 'medium'
+    return await asyncio.sleep(0.3, result='medium')
 
 
 async def slow_task():
-    await asyncio.sleep(1)
-    return 'slow'
+    return await asyncio.sleep(1, result='slow')
 
 
 async def first_complete():

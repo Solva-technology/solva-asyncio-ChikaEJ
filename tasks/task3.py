@@ -3,9 +3,7 @@ import asyncio
 
 async def limited_worker(task_id, semaphore):
     async with semaphore:
-        await asyncio.sleep(0.1)
-        print(task_id)
-        return task_id
+        return await asyncio.sleep(0.1, result=task_id)
 
 
 async def limited_runner():

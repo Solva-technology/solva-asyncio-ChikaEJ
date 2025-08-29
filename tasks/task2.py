@@ -2,8 +2,7 @@ import asyncio
 
 
 async def delayed_echo(text, delay):
-    await asyncio.sleep(delay)
-    return text
+    return await asyncio.sleep(delay, result=text)
 
 
 async def echo_all():
