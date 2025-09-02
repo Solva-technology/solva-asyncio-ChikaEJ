@@ -6,5 +6,5 @@ async def delayed_echo(text, delay):
 
 
 async def echo_all():
-    tasks = [delayed_echo(text, 5) for text in ['hello', 'world', '!']]
+    tasks = [delayed_echo(text, 5) for text in 'hello world !'.split(' ')]
     return await asyncio.gather(*tasks)

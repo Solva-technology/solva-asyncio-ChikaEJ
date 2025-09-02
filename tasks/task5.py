@@ -1,4 +1,5 @@
 import asyncio
+from asyncio import FIRST_COMPLETED
 
 
 async def fast_task():
@@ -14,11 +15,16 @@ async def slow_task():
 
 
 async def first_complete():
-    tasks = [asyncio.create_task(task) for task in [fast_task(),
-                                                    medium_task(),
-                                                    slow_task()]]
-    done, pending = await asyncio.wait(tasks,
-                                       return_when=asyncio.FIRST_COMPLETED)
+    tasks = [asyncio.ensure_future(task) for task in [
+        fast_task(),
+        medium_task(),
+        slow_task()
+    ]]
+    done, pending = await asyncio.wait(tasks, return_when=FIRST_COMPLETED)
 
-    for task in done:
-        return task.result()
+    fist_result = next(iter(done)).result()
+
+    for task in iter(pending):
+        task.cancel()
+
+    return fist_result
